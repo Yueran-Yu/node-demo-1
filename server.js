@@ -19,49 +19,44 @@ var server = http.createServer(function (request, response) {
   /******** 从这里开始看，上面不要看 ************/
 
   console.log('有个傻子发请求过来啦！路径（带查询参数）为：' + pathWithQuery)
-  console.log(path)
 
   if (path === '/') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     var accept = request.headers["accept"]
-    if(accept.indexOf("xml")){
-      response.write("I know you want to visit the content of XML")
-    }else{
-      response.write(`
+    response.write(`
       <!DOCTYPE html>
       <head>
-      <link rel="stylesheet" href="/x">
+      <link rel="stylesheet" href="/style.css">
       </head>
       <body>
       <h1>Title</h1>
       <p>Hello, this is the fist I know I can write the code directly in the js file for node server to response.</p>
-      <script src="/y"></script>
+      <script src="/test.js"></script>
       </body>
       `)
-    }
     response.end()
-  } else if (path === '/x') {
+  } else if (path === '/style.css') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/css;charset=utf-8')
-    response.write(`body{color: red;}\n`)
+    response.write(`h1{color: red;}\n`)
     response.end()
 
-  } else if(path === '/y'){
+  } else if (path === '/test.js') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
-    response.write(`console.log('This is the y file that can be used by the html file.')`)
+    response.write(`console.log('This is the test.js file that can be used by the html file.')`)
     response.end()
   }
   else {
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
-    response.write(`你输入的路径不存在对应的内容`)
+    response.write(`The page you visited is not exist. 404`)
     response.end()
   }
 
   /******** 代码结束，下面不要看 ************/
 })
 server.listen(port)
-console.log('监听 ' + port + ' 成功\n请用在空中转体720度然后用电饭煲打开 http://localhost:' + port)
+console.log('Listening' + port + ' 成功\n请用在空中转体720度然后用电饭煲打开 http://localhost:' + port)
 
